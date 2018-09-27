@@ -68,7 +68,7 @@ app.post("/ghmobile", function (request, response) {
 
   winston.log(request_json);
   console.log(request_json);
-  response.status(200).send({status:"success"});
+  response.send(200);
 });
 
 app.listen(port, function () {

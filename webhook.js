@@ -14,7 +14,7 @@ require('winston-loggly-bulk');
     json:true
 });
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (request, response) => res.send('Hello World!'))
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -40,14 +40,14 @@ app.post("/ghmobile", function(request, response) {
   }
   
   // Retrieve the request's body
-  var request_json = JSON.parse(request.body);
+  var request_json = request.body;
 
   // Give value to your customer but don't give any output
 // Remember that this is a call from rave's servers and 
 // Your customer is not seeing the response here at all
 
   winston.log(request_json);
-
+  console.log(request_json)
   response.send(200);
   
   

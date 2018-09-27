@@ -40,20 +40,24 @@ app.post("/ghmobile", function (request, response) {
   // retrieve the signature from the header
   var hash = req.headers["verif-hash"];
 
-  if (!hash) {}
-  // discard the request,only a post with rave signature header gets our attention 
-  response.send({status:"failed"});
+  if (!hash) {
+    response.send({status:"failed"});
   process.exit(0);
+  }
+  // discard the request,only a post with rave signature header gets our attention 
+  
 
   // Get signature stored as env variable on your server
   var secret_hash = process.env.SECRET_HASH;
 
   // check if signatures match
 
-  if (hash !== secret_hash) {}
+  if (hash !== secret_hash) {
+    response.send({status:"failed"});
+    process.exit(0);
+  }
   // silently exit, or check that you are passing the write hash on your server.
-  response.send({status:"failed"});
-  process.exit(0);
+  
 
   // Retrieve the request's body
   var request_json = request.body;

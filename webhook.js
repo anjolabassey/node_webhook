@@ -15,7 +15,7 @@ winston.add(winston.transports.Loggly, {
 });
 
 app.get('/', function (request, response) {
-  res.send('Hello World!');
+  response.send('Hello World!');
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +30,7 @@ app.post("/ghmobile", function (request, response) {
 
   if (!hash) {}
   // discard the request,only a post with rave signature header gets our attention 
-  res.send({status:"failed"});
+  response.send({status:"failed"});
   process.exit(0);
 
   // Get signature stored as env variable on your server
@@ -40,7 +40,7 @@ app.post("/ghmobile", function (request, response) {
 
   if (hash !== secret_hash) {}
   // silently exit, or check that you are passing the write hash on your server.
-  res.send({status:"failed"});
+  response.send({status:"failed"});
   process.exit(0);
 
   // Retrieve the request's body
@@ -52,7 +52,7 @@ app.post("/ghmobile", function (request, response) {
 
   winston.log(request_json);
   console.log(request_json);
-  res.status(200).send({status:"success"});
+  response.status(200).send({status:"success"});
 });
 
 app.listen(port, function () {

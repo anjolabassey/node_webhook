@@ -14,7 +14,9 @@ require('winston-loggly-bulk');
     json:true
 });
 
-app.get('/', (request, response) => res.send('Hello World!'))
+app.get('/', function (request, response) {
+  res.send('Hello World!');
+});
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -53,6 +55,6 @@ app.post("/ghmobile", function(request, response) {
   
 });
 
-app.listen(port, () => {
+app.listen(port, function() {
     console.log('App listening on port %d', port);
 });

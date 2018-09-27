@@ -41,10 +41,11 @@ app.post("/ghmobile", function (request, response) {
   var hash = req.headers["verif-hash"];
 
   if (!hash) {
+    // discard the request,only a post with rave signature header gets our attention 
     response.send({status:"failed"});
   process.exit(0);
   }
-  // discard the request,only a post with rave signature header gets our attention 
+  
   
 
   // Get signature stored as env variable on your server
@@ -53,10 +54,11 @@ app.post("/ghmobile", function (request, response) {
   // check if signatures match
 
   if (hash !== secret_hash) {
+    // silently exit, or check that you are passing the write hash on your server.
     response.send({status:"failed"});
     process.exit(0);
   }
-  // silently exit, or check that you are passing the write hash on your server.
+  
   
 
   // Retrieve the request's body
@@ -69,6 +71,7 @@ app.post("/ghmobile", function (request, response) {
   winston.log(request_json);
   console.log(request_json);
   response.send(200);
+  
 });
 
 app.listen(port, function () {

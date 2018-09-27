@@ -54,5 +54,5 @@ app.post("/ghmobile", function(request, response) {
 });
 
 app.listen(port, () => {
-    console.log('App listening on port '+ port)
+    console.log('App listening on port %d', port);
 });

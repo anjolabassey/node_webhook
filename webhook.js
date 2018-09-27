@@ -1,5 +1,3 @@
-"use strict";
-
 // This example uses Express to receive webhooks
 var app = require("express")();
 var bodyParser = require('body-parser');

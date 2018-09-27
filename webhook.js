@@ -26,20 +26,22 @@ app.post("/ghmobile", function (request, response) {
   * here to log the signature and body to db or file       */
 
   // retrieve the signature from the header
-  var hash = req.headers["HTTP_VERIF_HASH"];
+  var hash = req.headers["verif-hash"];
 
   if (!hash) {}
   // discard the request,only a post with rave signature header gets our attention 
-
+  res.send({status:"failed"});
+  process.exit(0);
 
   // Get signature stored as env variable on your server
-  var secret_hash = process.env.MY_HASH;
+  var secret_hash = process.env.SECRET_HASH;
 
   // check if signatures match
 
   if (hash !== secret_hash) {}
   // silently exit, or check that you are passing the write hash on your server.
-
+  res.send({status:"failed"});
+  process.exit(0);
 
   // Retrieve the request's body
   var request_json = request.body;
@@ -50,7 +52,7 @@ app.post("/ghmobile", function (request, response) {
 
   winston.log(request_json);
   console.log(request_json);
-  response.send(200);
+  res.status(200).send({status:"success"});
 });
 
 app.listen(port, function () {

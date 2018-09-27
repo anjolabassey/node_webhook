@@ -62,6 +62,7 @@ app.post("/ghmobile", function (request, response) {
   
 
   // Retrieve the request's body
+  winston.info(request.body);
   var request_json = request.body;
 
   // Give value to your customer but don't give any output
@@ -71,7 +72,7 @@ app.post("/ghmobile", function (request, response) {
   winston.log(request_json);
   console.log(request_json);
   response.send(200);
-  
+
 });
 
 app.listen(port, function () {

@@ -1,18 +1,30 @@
 // This example uses Express to receive webhooks
 var app = require("express")();
+var expressWinston = require('express-winston');
+var winston = require('winston');
+var {Loggly} = require('winston-loggly-bulk');
+
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 4000;
 process.env.SECRET_HASH = "TESTRAVE";
+expressWinston.requestWhitelist.push('body');
 
-var winston = require('winston');
-require('winston-loggly-bulk');
+app.use(expressWinston.logger({
+  transports: [
+      new winston.transports.Console({
+          json: true,
+          colorize: true
+      }),
+      
+      winston.add(new Loggly({
+          subdomain: 'anjolabassey',
+          inputToken: '74d1c06e-ac3c-4fb5-87ca-018afe2f3153',
+          json: true,
+          tags: ["NodeJS-Express"]
+      }))
+  ]
+}));
 
-winston.add(winston.transports.Loggly, {
-  token: "74d1c06e-ac3c-4fb5-87ca-018afe2f3153",
-  subdomain: "anjolabassey",
-  tags: ["Winston-NodeJS"],
-  json: true
-});
 
 app.get('/', function (request, response) {
   response.send('Hello World!');
